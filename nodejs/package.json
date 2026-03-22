@@ -1,5 +1,5 @@
 {
-  "name": "@pinix/weixin-bot",
+  "name": "@pinixai/weixin-bot",
   "version": "1.0.0",
   "description": "WeChat iLink Bot SDK for Node.js",
   "type": "module",
