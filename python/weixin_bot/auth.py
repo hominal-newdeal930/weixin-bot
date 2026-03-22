@@ -86,20 +86,7 @@ def _clear_credentials_sync(token_path: str | Path | None) -> None:
 
 
 def _print_qr_instructions(url: str) -> None:
-    try:
-        import qrcode
-
-        qr = qrcode.QRCode(border=1)
-        qr.add_data(url)
-        qr.make(fit=True)
-        matrix = qr.get_matrix()
-        for row in matrix:
-            line = "".join("##" if cell else "  " for cell in row)
-            sys.stderr.write(f"{line}\n")
-    except Exception:
-        pass
-
-    _log("用微信扫描上方二维码，或在微信中打开以下链接:")
+    _log("在微信中打开以下链接完成登录:")
     sys.stderr.write(f"{url}\n")
 
 

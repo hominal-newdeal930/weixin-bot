@@ -50,17 +50,7 @@ function isCredentials(value: unknown): value is Credentials {
 }
 
 async function printQrInstructions(url: string): Promise<void> {
-  // Try to render QR in terminal if qrcode-terminal is available
-  try {
-    // @ts-ignore — optional peer, no types needed
-    const qrterm = await import('qrcode-terminal')
-    ;(qrterm.default ?? qrterm).generate(url, { small: true }, (qr: string) => {
-      process.stderr.write(`${qr}\n`)
-    })
-  } catch {
-    // no-op: fall through to URL display
-  }
-  log('用微信扫描上方二维码，或在微信中打开以下链接:')
+  log('在微信中打开以下链接完成登录:')
   process.stderr.write(`${url}\n`)
 }
 
