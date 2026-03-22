@@ -735,7 +735,9 @@ curl 'https://ilinkai.weixin.qq.com/ilink/bot/sendmessage' \
 
 使用同一 `client_id` 发送 `GENERATING → GENERATING → FINISH` 三条消息，API 层面均返回 200，但微信客户端仅显示第一条 `GENERATING` 的内容，后续的 `GENERATING` 和 `FINISH` 更新未在聊天气泡中渲染。对照组使用不同 `client_id` 各发一条 `FINISH`，三条消息均独立显示。
 
-推测 `GENERATING` 可能仅在微信内置 AI 对话界面（非普通 bot 会话窗口）中支持气泡实时更新，或者需要特定的客户端版本/配置才能生效。官方 openclaw-weixin 插件代码中也完全不使用 `GENERATING`，所有发送均为 `FINISH`。
+补充测试：`GENERATING` 空 `item_list` 时服务端返回 `ret: -2`（参数错误）；`GENERATING` 带文本时正常投递为一条消息，但**不会**触发微信端的"对方正在输入中"提示。作为对照，`sendtyping` API **可以**触发"对方正在输入中"。
+
+推测 `GENERATING` 可能仅在微信内置 AI 对话界面（非普通 bot 会话窗口）中支持气泡实时更新。官方 openclaw-weixin 插件代码中也完全不使用 `GENERATING`，所有发送均为 `FINISH`。
 
 **工程建议**
 
