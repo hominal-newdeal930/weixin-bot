@@ -1,0 +1,12 @@
+{
+  "name": "weixin-bot-example",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@pinixai/weixin-bot": "^1.0.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.0.0",
+    "qrcode-terminal": "^0.12.0"
+  }
+}
